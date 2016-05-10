@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ordersController.js"></script>
+  <script src="js/orderModel.js"></script>
+  <script src="js/ordersModel.js"></script>
+</head>
+<body ng-app="orderApp" ng-controller="ordersController">
+
+  <h1>Orders</h1>
+
+  <div>
+    <button class="new-order" ng-click="startOrderCreate()" ng-hide="showCreateOrder">Create order</button>
+  </div>
+
+  <div class="lightbox" ng-show="showCreateOrder">
+    <div class="modal">
+      <input type="text" ng-model="editingOrder.customer">
+      <span ng-show="showCreateOrderDetails">
+        <select ng-options="o as o for o in colors" ng-model="editingOrder.color">
+          <option value="" ng-if="!editingOrder.color">- Choose color -</option>
+        </select>
+        <select ng-options="o as o for o in sizes" ng-model="editingOrder.size">
+          <option value="" ng-if="!editingOrder.size">- Choose size -</option>
+        </select>
+        <input type="range" ng-model="editingOrder.quantity">
+        <button ng-click="orderCreateDone()">Completed</button>
+      </span>
+      <button ng-hide="showCreateOrderDetails" ng-click="createOrder()">Add order</button>
+    </div>
+  </div>
+
+  <div class="orders">
+    <div class="order-evans" ng-repeat="order in orders">
+      <ul>
+        <li class="color">color: {{order.color}}</li>
+        <li class="size">size: {{order.size}}</li>
+        <li class="quantity">quantity: {{order.quantity}}</li>
+        <li class="customer">customer: {{order.customer}}</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>
